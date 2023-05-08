@@ -15,13 +15,14 @@ class SplashScreen extends StatefulWidget {
 
 class SplashScreenState extends State<SplashScreen> {
 
+  // ignore: constant_identifier_names
   static const String LOGINKEY = "login";
 
   @override
   void initState() {
     super.initState();
 
-    GoTo(context);
+    goTo(context);
   }
 
   @override
@@ -37,7 +38,7 @@ class SplashScreenState extends State<SplashScreen> {
     }
 }
 
-    void GoTo(context) async {
+    void goTo(context) async {
 
     var sharedPref = await SharedPreferences.getInstance();
 

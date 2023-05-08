@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttersharedprefs/pages/home_page.dart';
 import 'package:fluttersharedprefs/pages/splash_screen.dart';
@@ -75,6 +73,7 @@ class LoginPage extends StatelessWidget {
               var sharedPref = await SharedPreferences.getInstance();
               sharedPref.setBool(SplashScreenState.LOGINKEY, true);
 
+              // ignore: use_build_context_synchronously
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
               
               }

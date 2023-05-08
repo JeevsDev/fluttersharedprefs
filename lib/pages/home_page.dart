@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   void startNewTimer() {
     stopTimer();
 
-    _timer = Timer(const Duration(seconds: 15), timedOut);
+    _timer = Timer(const Duration(seconds: autoLogoutTimer), timedOut);
     
   }
 

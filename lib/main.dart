@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
 
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen()
+      home: const SplashScreen()
         );
   }
 }
