@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:fluttersharedprefs/components/my_button.dart';
 import 'package:fluttersharedprefs/pages/login_page.dart';
 import 'package:fluttersharedprefs/pages/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,26 +15,36 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  Timer? _timer;
+  static Timer? _timer;
+  static const autoLogoutTimer = 15;
 
   @override
   void initState() {
     super.initState();
-    _initializeTimer();
+    startNewTimer();
   }
 
-  void _initializeTimer() {
-    if (_timer != null) {
-      _timer?.cancel;
-    }
 
-    _timer = Timer(const Duration(seconds: 15), () => _handleInactivity());
-  }
-
-  void _handleInactivity() {
-    _timer?.cancel();
-    _timer = null;
+  Future<void> timedOut() async {
+    stopTimer();
     Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+  }
+
+
+  void startNewTimer() {
+    stopTimer();
+
+    _timer = Timer(const Duration(seconds: 15), timedOut);
+    
+  }
+
+
+  void stopTimer() {
+    if (_timer != null || (_timer?.isActive != null && _timer!.isActive)) {
+      _timer?.cancel();
+  }
+
+
   }
 
 
@@ -41,29 +52,41 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     
     return GestureDetector(
-      behavior: HitTestBehavior.translucent,
-      onTap: () => _initializeTimer(),
+      behavior: HitTestBehavior.deferToChild,
+      onTap: () => startNewTimer(),
       child: Scaffold(
         appBar: AppBar(
         title: const Text('Home'), 
-        backgroundColor: Colors.black, 
-        leading: GestureDetector(
-          onTap: () async {
-                
-                var sharedPref = await SharedPreferences.getInstance();
-                sharedPref.setBool(SplashScreenState.LOGINKEY, false);
-                
-                
-                // ignore: use_build_context_synchronously
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));},
-                
-          child: const Icon(Icons.logout)),
-          
+        backgroundColor: Colors.black,
         ),
         body: Container(
           color: Colors.grey[100],
-          child: Center(
-            child: Icon(Icons.home, color: Colors.black.withOpacity(0.5), size: 60),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              
+              Center(
+                child: Icon(Icons.home, color: Colors.black.withOpacity(0.5), size: 60),
+                
+              ),
+
+              const SizedBox(height: 50),
+
+              Center(
+                child: MyButton(onTap: () async {
+                  
+                  var sharedPref = await SharedPreferences.getInstance();
+                  sharedPref.setBool(SplashScreenState.LOGINKEY, false);
+                  
+                  
+                  // ignore: use_build_context_synchronously
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));}, 
+
+                  text: "Log Out"),
+              ),
+                
+              
+            ],
           ),
         ),
       ),
