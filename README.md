@@ -1,16 +1,16 @@
 # fluttersharedprefs
 
-A new Flutter project.
+A Flutter project aimed at implementing Shared Preference for saving/storing login data and also for implementing auto signout/logout feature, when the app detects ussr inactivity.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Clone this project, run flutter pub get and you're good to go!
 
-A few resources to get you started if this is your first Flutter project:
+Tools Used:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- VS Code/Android Studio
+- Android Emulator
+- Postman
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Need Help??
+Mail me @ jeevandevasiajohn@gmail.com 🖤
